@@ -1,13 +1,21 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>map</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
+<ion-content class="body-map" [fullscreen]="true" cdkDroplist>
   <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">map</ion-title>
-    </ion-toolbar>
+    <div class="client-name">
+      <h1>Cliente</h1>
+      <ion-icon class="descarga-icon" name="download-outline"></ion-icon>
+    </div>
   </ion-header>
+  <div class="post-it" *ngIf="showPostIt" [style.left.px]="postItX" [style.top.px]="postItY" cdkDrag>
+    <textarea [(ngModel)]="postItContent" placeholder="Escribe aquí..." (blur)="onPostItBlur()"></textarea>
+  </div>
+  <ion-icon id="drag-icon" name="albums" (click)="createPostIt($event)"></ion-icon>
+  <div class="map-upper-lines">
+    <div class="row-upper-line"></div>
+    <div class="column-upper-line"></div>
+  </div>
+  <div class="map-lower-lines">
+    <div class="row-lower-line"></div>
+    <div class="column-lower-line"></div>
+  </div>
+
 </ion-content>
