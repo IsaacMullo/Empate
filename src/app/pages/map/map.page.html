@@ -5,10 +5,12 @@
       <ion-icon class="descarga-icon" name="download-outline"></ion-icon>
     </div>
   </ion-header>
-  <div class="post-it" *ngIf="showPostIt" [style.left.px]="postItX" [style.top.px]="postItY" cdkDrag>
-    <textarea [(ngModel)]="postItContent" placeholder="Escribe aquí..." (blur)="onPostItBlur()"></textarea>
-  </div>
+  
   <ion-icon id="drag-icon" name="albums" (click)="createPostIt($event)"></ion-icon>
+  <div class="post-it" *ngFor="let postIt of postIts" [style.left.px]="postIt.x" [style.top.px]="postIt.y" cdkDrag>
+    <textarea [(ngModel)]="postIt.content" placeholder="Escribe aquí..." (blur)="onPostItBlur()"></textarea>
+  </div>
+
   <div class="map-upper-lines">
     <div class="row-upper-line"></div>
     <div class="column-upper-line"></div>

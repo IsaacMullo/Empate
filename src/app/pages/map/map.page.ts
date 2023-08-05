@@ -1,8 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { DragDropModule} from '@angular/cdk/drag-drop';
+//
+interface PostIt {
+  x: number;
+  y: number;
+  content: string;
+}
+
 
 @Component({
   selector: 'app-map',
@@ -12,6 +19,7 @@ import { DragDropModule} from '@angular/cdk/drag-drop';
   imports: [IonicModule, CommonModule, FormsModule, DragDropModule]
 })
 export class MapPage implements OnInit {
+  postIts: PostIt[]=[];
   showPostIt: boolean = false;
   postItX: number = 0;
   postItY: number = 0;
@@ -23,7 +31,6 @@ export class MapPage implements OnInit {
   }
 
   onPostItBlur() {
-    // Puedes guardar el contenido del post-it en la base de datos o hacer otras acciones aquí
   }
 
   
@@ -32,7 +39,19 @@ export class MapPage implements OnInit {
     this.postItX = target.offsetLeft;
     this.postItY = target.offsetTop + target.offsetHeight;
     this.showPostIt = true;
-    this.postItContent = ''; // Reiniciar el contenido del post-it
+    this.postItContent = ''; 
+    const newPostIt: PostIt = {
+      x: this.postItX,
+      y: this.postItY,
+      content: this.postItContent,
+    };
+    this.postIts.push(newPostIt);
   }
-
+  
 }
+
+
+
+
+
+
