@@ -17,7 +17,8 @@ export class WelcomePage implements OnInit {
 
   ngOnInit() {
   }
-  navegar() {
+  
+  move_to_clients(){
     this.router.navigate(['/clients'])
   }
 
