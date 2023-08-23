@@ -18,12 +18,16 @@ interface PostIt {
   standalone: true,
   imports: [IonicModule, CommonModule, FormsModule, DragDropModule]
 })
+
 export class MapPage implements OnInit {
   postIts: PostIt[]=[];
   showPostIt: boolean = false;
   postItX: number = 0;
   postItY: number = 0;
   postItContent: string = '';
+
+  showTextBox = false;
+  inputText = '';
 
   constructor() { }
 
@@ -48,6 +52,20 @@ export class MapPage implements OnInit {
     this.postIts.push(newPostIt);
   }
   
+  toggleTextBox() {
+    this.showTextBox = !this.showTextBox;
+    this.inputText = '';
+  }
+
+  guardarTexto() {
+    // Aquí puedes realizar la lógica para guardar el texto ingresado
+    this.showTextBox = false;
+  }
+
+  cancelar() {
+    this.showTextBox = false;
+    this.inputText = '';
+  }
 }
 
 
