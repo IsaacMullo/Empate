@@ -33,7 +33,6 @@ export class MapPage implements OnInit {
   onPostItBlur() {
   }
 
-  
   createPostIt(event: Event) {
     const target = event.target as HTMLElement;
     this.postItX = target.offsetLeft;
@@ -43,11 +42,11 @@ export class MapPage implements OnInit {
     const newPostIt: PostIt = {
       x: this.postItX,
       y: this.postItY,
-      content: this.postItContent,
+      content: this.postItContent,  
     };
     this.postIts.push(newPostIt);
   }
-  
+ 
 }
 
 

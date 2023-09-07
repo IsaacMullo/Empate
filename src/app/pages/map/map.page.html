@@ -1,4 +1,5 @@
 <ion-content class="body-map" [fullscreen]="true" cdkDroplist>
+  
   <ion-header collapse="condense">
     <div class="client-name">
       <h1>Cliente</h1>
@@ -7,6 +8,7 @@
   </ion-header>
   
   <ion-icon id="drag-icon" name="albums" (click)="createPostIt($event)"></ion-icon>
+
   <div class="post-it" *ngFor="let postIt of postIts" [style.left.px]="postIt.x" [style.top.px]="postIt.y" cdkDrag>
     <textarea [(ngModel)]="postIt.content" placeholder="Escribe aquí..." (blur)="onPostItBlur()"></textarea>
   </div>
