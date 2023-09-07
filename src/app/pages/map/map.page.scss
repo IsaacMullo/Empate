@@ -58,8 +58,8 @@
 .row-lower-line{
     border: 1px solid #000;
     width: 95%;
-    margin-left: 10px;
-    margin-right: 10px;
+    margin-left: 2%;
+    margin-right: 2%;
     transform: translateY(-50%) rotate(180deg);
 }
 
@@ -80,9 +80,9 @@
     border-radius: 8px;
     padding: 8px;
     min-width: 100px;
-  }
+}
   
-  .post-it textarea {
+.post-it textarea {
     width: 100px;
     height: 100px;
     resize: none;
@@ -93,5 +93,29 @@
     font-size: 14px;
     line-height: 1.5;
     overflow: scroll;
-  }
+}
+
+.save-client {
+    color: #000;
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+    max-width: 300px;
+    padding: 20px;
+    background-color: #F3F3F3;
+    border: 1px solid black;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+    z-index: 1000; /* Asegura que el cuadro esté sobre otros elementos */
+}
+
+.save-client-box{
+    margin-left: 5%;
+}
+
+.save-client-box .save-button{
+    margin-right: 5%;
+}
   
