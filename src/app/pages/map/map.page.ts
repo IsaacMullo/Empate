@@ -27,7 +27,7 @@ export class MapPage implements OnInit {
   postItContent: string = '';
 
   showTextBox = false;
-  inputText = '';
+  clientsName = '';
 
   constructor() { }
 
@@ -35,6 +35,7 @@ export class MapPage implements OnInit {
   }
 
   onPostItBlur() {
+    
   }
 
   
@@ -54,17 +55,18 @@ export class MapPage implements OnInit {
   
   toggleTextBox() {
     this.showTextBox = !this.showTextBox;
-    this.inputText = '';
+    this.clientsName = '';
   }
 
   guardarTexto() {
-    // Aquí puedes realizar la lógica para guardar el texto ingresado
+    const clientName = this.clientsName
     this.showTextBox = false;
+    console.log(clientName)
   }
 
   cancelar() {
     this.showTextBox = false;
-    this.inputText = '';
+    this.clientsName = '';
   }
 }
 
