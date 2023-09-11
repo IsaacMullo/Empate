@@ -5,6 +5,17 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
+//
+import { DataSharingService } from '../../shared/data.sharing.service';
+
+//
+
+interface PostIt {
+  x: number;
+  y: number;
+  content: string;
+}
+
 
 @Component({
   selector: 'app-clients',
@@ -14,10 +25,15 @@ import { IonicModule } from '@ionic/angular';
   imports: [IonicModule, CommonModule, FormsModule, DragDropModule]
 })
 export class ClientsPage implements OnInit {
+  postIts: PostIt[] = [];
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private dataSharingService: DataSharingService) { } //private dataSharingService: DataSharingService
 
   ngOnInit() {
+      // Suscríbete a los cambios en la lista de post-its compartidos
+      this.dataSharingService.getSharedPostIts().subscribe((postIts) => {
+        this.postIts = postIts;
+      });
   } 
 
   move_to_map(){
@@ -29,7 +45,6 @@ export class ClientsPage implements OnInit {
   }
 
 }
-
 
 
 

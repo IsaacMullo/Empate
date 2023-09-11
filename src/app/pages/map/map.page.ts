@@ -3,13 +3,18 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
+
 //
+import { DataService } from '../../shared/data.service';
+import { DataSharingService } from '../../shared/data.sharing.service';
+
+
+
 interface PostIt {
   x: number;
   y: number;
   content: string;
 }
-
 
 @Component({
   selector: 'app-map',
@@ -17,6 +22,7 @@ interface PostIt {
   styleUrls: ['./map.page.scss'],
   standalone: true,
   imports: [IonicModule, CommonModule, FormsModule, DragDropModule]
+  
 })
 
 export class MapPage implements OnInit {
@@ -28,9 +34,9 @@ export class MapPage implements OnInit {
 
   showTextBox = false;
   inputText = '';
-
-  constructor() { }
-
+  
+  constructor(private dataService: DataService,private dataSharingService: DataSharingService) { } //
+  
   ngOnInit() {
   }
 
@@ -57,8 +63,10 @@ export class MapPage implements OnInit {
   }
 
   guardarTexto() {
-    // Aquí puedes realizar la lógica para guardar el texto ingresado
-    this.showTextBox = false;
+    this.showTextBox = false; 
+    this.dataService.savePostIts(this.postIts);
+     // Actualiza la lista de post-its compartidos
+  this.dataSharingService.updateSharedPostIts(this.postIts);
   }
 
   cancelar() {
@@ -66,9 +74,3 @@ export class MapPage implements OnInit {
     this.inputText = '';
   }
 }
-
-
-
-
-
-

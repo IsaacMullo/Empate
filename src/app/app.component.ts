@@ -2,6 +2,18 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
+
+//Borrar si es necesario
+import { DataService } from '../app/shared/data.service';
+
+//
+interface PostIt {
+  x: number;
+  y: number;
+  content: string;
+}
+
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -10,6 +22,9 @@ import { IonicModule } from '@ionic/angular';
   imports: [IonicModule, RouterLink, RouterLinkActive, CommonModule],
 })
 export class AppComponent {
+ 
+
+
   public appPages = [
     { title: 'Inbox', url: '/folder/inbox', icon: 'mail' },
     { title: 'Outbox', url: '/folder/outbox', icon: 'paper-plane' },
@@ -19,5 +34,6 @@ export class AppComponent {
     { title: 'Spam', url: '/folder/spam', icon: 'warning' },
   ];
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
-  constructor() {}
+  constructor(private dataService: DataService) {} //private dataService: DataService
+
 }
