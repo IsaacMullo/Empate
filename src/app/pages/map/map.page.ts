@@ -27,7 +27,7 @@ export class MapPage implements OnInit {
   postItContent: string = '';
 
   showTextBox = false;
-  clientsName = '';
+  inputText = '';
 
   constructor() { 
   }
@@ -53,17 +53,17 @@ export class MapPage implements OnInit {
   
   toggleTextBox() {
     this.showTextBox = !this.showTextBox;
-    this.clientsName = '';
+    this.inputText = '';
   }
 
   guardarTexto() {
-    const clientName = this.clientsName
+    const clientName = this.inputText
     this.showTextBox = false;
     console.log(clientName)
   }
 
   cancelar() {
     this.showTextBox = false;
-    this.clientsName = '';
+    this.inputText = '';
   }
 }

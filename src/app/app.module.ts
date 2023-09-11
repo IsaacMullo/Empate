@@ -16,7 +16,8 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
-  declarations: [AppComponent, WelcomePage],
+  declarations: [AppComponent],
+  //, WelcomePage
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, IonicModule, CommonModule, FormsModule, IonicModule, DragDropModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
