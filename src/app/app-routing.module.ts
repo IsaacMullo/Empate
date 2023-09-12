@@ -14,6 +14,11 @@ const routes: Routes = [
     path: 'welcome',
     loadChildren: () => import('./pages/welcome/welcome.module').then( m => m.WelcomePageModule)
   },
+  {
+    path: '',
+    redirectTo: 'welcome', // Esto redirecciona a la página de bienvenida al cargar la aplicación.
+    pathMatch: 'full',
+  },
 ];
 
 @NgModule({
