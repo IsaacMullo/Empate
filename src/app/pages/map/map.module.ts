@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { SaveService } from 'src/app/services/save.service';
-
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MapPageRoutingModule } from './map-routing.module';
 
 import { MapPage } from './map.page';
@@ -13,7 +13,8 @@ import { MapPage } from './map.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    MapPageRoutingModule
+    MapPageRoutingModule,
+    DragDropModule
   ],
   declarations: [
     MapPage  // Asegúrate de declarar MapPage aquí
