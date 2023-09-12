@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
-// No incluyas las importaciones de módulos aquí
+import { SaveService } from 'src/app/services/save.service'; // Asegúrate de que la ruta sea correcta
 
 interface PostIt {
   x: number;
@@ -23,13 +22,7 @@ export class MapPage implements OnInit {
   showTextBox = false;
   inputText = '';
 
-  constructor() {}
-
-  ngOnInit() {}
-
-  onPostItBlur() {
-    // Aquí puedes agregar la lógica para cuando se pierda el foco del post-it
-  }
+  constructor(private saveService: SaveService) {} // Inyecta el servicio en el constructor
 
   createPostIt(event: Event) {
     const target = event.target as HTMLElement;
@@ -45,6 +38,13 @@ export class MapPage implements OnInit {
     this.postIts.push(newPostIt);
   }
 
+  ngOnInit() {}
+
+  // Resto de métodos...
+  onPostItBlur() {
+    // Aquí puedes agregar la lógica para cuando se pierda el foco del post-it
+  }
+
   toggleTextBox() {
     this.showTextBox = !this.showTextBox;
     this.inputText = '';
@@ -54,9 +54,12 @@ export class MapPage implements OnInit {
     const clientName = this.inputText;
     this.showTextBox = false;
     console.log(clientName);
-    // Aquí puedes implementar la lógica para guardar el texto (clientName) según tus necesidades.
+
+    // Ahora, usa el servicio para guardar el texto (clientName)
+    this.saveService.guardarPostIt(clientName, this.postItContent);
   }
 
+  // Resto de métodos...
   cancelar() {
     this.showTextBox = false;
     this.inputText = '';
