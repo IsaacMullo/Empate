@@ -6,8 +6,8 @@ import { Router } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 //
+import { DataService } from '../../shared/data.service';
 import { DataSharingService } from '../../shared/data.sharing.service';
-
 //
 
 interface PostIt {
@@ -26,10 +26,18 @@ interface PostIt {
 })
 export class ClientsPage implements OnInit {
   postIts: PostIt[] = [];
+  clientes: string[] = []; //
 
-  constructor(private router: Router, private dataSharingService: DataSharingService) { } //private dataSharingService: DataSharingService
+
+  constructor(private router: Router, private dataService: DataService, private dataSharingService: DataSharingService) { } //private dataSharingService: DataSharingService
 
   ngOnInit() {
+  //      // Suscríbete a los cambios en la lista de clientes compartidos
+  // this.dataSharingService.getSharedClientes().subscribe((clientes) => {
+  //   this.clientes = clientes;
+  // });
+
+
       // Suscríbete a los cambios en la lista de post-its compartidos
       this.dataSharingService.getSharedPostIts().subscribe((postIts) => {
         this.postIts = postIts;

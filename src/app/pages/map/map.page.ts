@@ -9,7 +9,7 @@ import { DataService } from '../../shared/data.service';
 import { DataSharingService } from '../../shared/data.sharing.service';
 
 
-
+//Interface
 interface PostIt {
   x: number;
   y: number;
@@ -26,6 +26,7 @@ interface PostIt {
 })
 
 export class MapPage implements OnInit {
+  nombreCliente: string = ''; // Propiedad para capturar el nombre del cliente
   postIts: PostIt[]=[];
   showPostIt: boolean = false;
   postItX: number = 0;
@@ -33,8 +34,10 @@ export class MapPage implements OnInit {
   postItContent: string = '';
 
   showTextBox = false;
-  inputText = '';
-  
+  inputText: string= ''; // nuevoCliente 
+  clientes: string[] = []; //Lista o arrays de clientes.  
+
+
   constructor(private dataService: DataService,private dataSharingService: DataSharingService) { } //
   
   ngOnInit() {
@@ -43,16 +46,22 @@ export class MapPage implements OnInit {
   onPostItBlur() {
   }
 
-  createPostIt(event: Event) {
+  createPostIt(event: MouseEvent) {
     const target = event.target as HTMLElement;
-    this.postItX = target.offsetLeft;
-    this.postItY = target.offsetTop + target.offsetHeight;
-    this.showPostIt = true;
-    this.postItContent = ''; 
+    // this.postItX = target.offsetLeft;
+    // this.postItY = target.offsetTop + target.offsetHeight;
+    // this.showPostIt = true;
+    // this.postItContent = ''; 
+    // const newPostIt: PostIt = {
+    //   x: this.postItX,
+    //   y: this.postItY,
+    //   content: this.postItContent,  
+    const x = event.clientX - target.getBoundingClientRect().left;
+    const y = event.clientY - target.getBoundingClientRect().top;
     const newPostIt: PostIt = {
-      x: this.postItX,
-      y: this.postItY,
-      content: this.postItContent,  
+      x: x,
+      y: y,
+      content: '',
     };
     this.postIts.push(newPostIt);
   }
@@ -62,11 +71,28 @@ export class MapPage implements OnInit {
     this.inputText = '';
   }
 
-  guardarTexto() {
+  guardarTexto() {  //Guardar Cliente
     this.showTextBox = false; 
-    this.dataService.savePostIts(this.postIts);
+    const inputText = this.inputText;
+    
+    // const nuevoCliente = {
+    //   nombre: inputText,
+    // };
+    
+    this.clientes.push(inputText);
+    
+    
+    // this.postIts.push(newPostIt); // Agrega el nuevo post-it.
+    
+    //modificazao
+    // this.dataSharingService.updateSharedClientes(this.clientes);
      // Actualiza la lista de post-its compartidos
-  this.dataSharingService.updateSharedPostIts(this.postIts);
+    this.dataSharingService.updateSharedPostIts(this.postIts); 
+    
+    this.dataService.savePostIts(this.postIts); 
+     // Restaura el valor de inputText
+    
+  
   }
 
   cancelar() {
