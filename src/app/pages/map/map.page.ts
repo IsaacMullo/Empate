@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { SaveService } from 'src/app/services/save.service'; // Asegúrate de que la ruta sea correcta
+import { SaveService } from 'src/app/services/save.service';
+import { ActivatedRoute } from '@angular/router';
 
 interface PostIt {
   x: number;
@@ -18,27 +19,67 @@ export class MapPage implements OnInit {
   postItX: number = 0;
   postItY: number = 0;
   postItContent: string = '';
+  clienteSeleccionado: string = '';
 
   showTextBox = false;
   inputText = '';
 
-  constructor(private saveService: SaveService) {} // Inyecta el servicio en el constructor
+  constructor(
+    private saveService: SaveService,
+    private route: ActivatedRoute
+  ) {}
 
-  createPostIt(event: Event) {
+  // Función para manejar cambios en el texto del post-it
+  onPostItContentChange(event: CustomEvent) {
+    // Obtén el contenido del post-it del evento
+    this.postItContent = event.detail.value as string;
+  }
+
+  createPostIt(event: MouseEvent) {
     const target = event.target as HTMLElement;
-    this.postItX = target.offsetLeft;
-    this.postItY = target.offsetTop + target.offsetHeight;
+    const offsetX = event.clientX - target.getBoundingClientRect().left;
+    const offsetY = event.clientY - target.getBoundingClientRect().top;
+  
+    this.postItX = offsetX;
+    this.postItY = offsetY;
     this.showPostIt = true;
-    this.postItContent = '';
+  
     const newPostIt: PostIt = {
       x: this.postItX,
       y: this.postItY,
       content: this.postItContent,
     };
-    this.postIts.push(newPostIt);
+  
+    // Guarda el nuevo post-it utilizando el servicio y el nombre del cliente como clave
+    if (this.clienteSeleccionado) {
+      this.saveService.guardarPostIt(this.clienteSeleccionado, newPostIt)
+        .then(() => {
+          // Actualiza la lista de post-its después de guardar
+          this.obtenerPostIts(this.clienteSeleccionado);
+        })
+        .catch(error => {
+          console.error('Error al guardar el post-it:', error);
+        });
+    }
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    // Recupera el nombre del cliente seleccionado del estado de la ruta
+    const cliente = this.route.snapshot.paramMap.get('cliente');
+
+    if (cliente) {
+      // Almacena el nombre del cliente seleccionado
+      this.clienteSeleccionado = cliente;
+
+      // Utiliza el servicio para obtener los post-its asociados a ese cliente
+      this.obtenerPostIts(cliente);
+    }
+  }
+
+  async obtenerPostIts(cliente: string) {
+    // Utiliza el servicio para obtener los post-its asociados al cliente seleccionado
+    this.postIts = await this.saveService.obtenerPostIts(cliente);
+  }
 
   // Resto de métodos...
   onPostItBlur() {
@@ -55,11 +96,19 @@ export class MapPage implements OnInit {
     this.showTextBox = false;
     console.log(clientName);
 
-    // Ahora, usa el servicio para guardar el texto (clientName)
-    this.saveService.guardarPostIt(clientName, this.postItContent);
+    // Verifica que se haya ingresado un nombre de cliente
+    if (clientName.trim() !== '') {
+      // Actualiza el cliente seleccionado
+      this.clienteSeleccionado = clientName;
+      
+      // Utiliza el servicio para obtener los post-its asociados a ese cliente (si existen)
+      this.obtenerPostIts(clientName);
+    } else {
+      // Maneja el caso en el que no se ingresó un nombre de cliente
+      console.error('Por favor, ingrese un nombre de cliente.');
+    }
   }
 
-  // Resto de métodos...
   cancelar() {
     this.showTextBox = false;
     this.inputText = '';

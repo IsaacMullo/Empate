@@ -19,23 +19,15 @@
     </ion-toolbar>
     
   </ion-header>
-
-  <ion-list class="lista">
-    <ion-item>
-      <ion-label>Cliente 1</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label>Cliente 2</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label>Cliente 3</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label>Cliente 4</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label>Cliente 5</ion-label>
-    </ion-item>
+  <ion-list>
+    <ion-item-sliding *ngFor="let cliente of clientes; let i = index;">
+      <ion-item (click)="obtenerClientes()">
+        <ion-label>{{ cliente }}</ion-label>
+      </ion-item>
+      <ion-item-options side="end">
+        <!-- Aquí puedes agregar opciones adicionales según sea necesario -->
+      </ion-item-options>
+    </ion-item-sliding>
   </ion-list>
 </ion-content>  
 
