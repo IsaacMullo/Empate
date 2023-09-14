@@ -24,11 +24,9 @@ export class ClientsPage implements OnInit {
   }  
 
   verCliente(cliente: string) {
-    // Navega a la página 'map.page' y pasa el nombre del cliente como parámetro de ruta
-    this.router.navigate(['/map'], {
-      state: { cliente },
-    });
-  }
+  // Navega a la página 'map.page' y pasa el nombre del cliente como parámetro de ruta
+  this.router.navigate(['/map', cliente]); // Aquí pasas el nombre del cliente
+}
 
   move_to_map() {
     this.router.navigate(['/map']);

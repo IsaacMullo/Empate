@@ -7,6 +7,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/clients/clients.module').then( m => m.ClientsPageModule)
   },
   {
+    path: 'map/:cliente', // El nombre del cliente se pasa como parámetro
+    loadChildren: () => import('./pages/map/map.module').then(m => m.MapPageModule)
+  },
+  {
     path: 'map',
     loadChildren: () => import('./pages/map/map.module').then( m => m.MapPageModule)
   },
