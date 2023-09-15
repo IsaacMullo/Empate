@@ -1,7 +1,5 @@
 {
   "name": "empat-e",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "angular"
+  "integrations": {},
+  "type": "angular-standalone"
 }
