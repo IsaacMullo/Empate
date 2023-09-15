@@ -19,15 +19,10 @@
     </ion-toolbar>
     
   </ion-header>
-  <ion-list>
-    <ion-item-sliding *ngFor="let cliente of clientes; let i = index;">
-      <ion-item (click)="verCliente(cliente)"> <!-- Asegúrate de pasar el cliente aquí -->
-        <ion-label>{{ cliente }}</ion-label>
-      </ion-item>      
-      <ion-item-options side="end">
-        <!-- Aquí puedes agregar opciones adicionales según sea necesario -->
-      </ion-item-options>
-    </ion-item-sliding>    
+  <ion-list class="lista">
+    <ion-item *ngFor="let postIt of postIts">
+      <ion-label>{{ postIt.content }}</ion-label>
+    </ion-item>
   </ion-list>
 </ion-content>  
 

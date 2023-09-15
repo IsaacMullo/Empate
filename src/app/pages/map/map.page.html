@@ -2,6 +2,7 @@
   
   <ion-header collapse="condense">
     <div class="client-name">
+      <h1>Cliente</h1>
       <ion-icon class="descarga-icon" name="download-outline" (click)="toggleTextBox()"></ion-icon>
     </div>
   </ion-header>
@@ -9,9 +10,8 @@
   <ion-icon id="drag-icon" name="albums" (click)="createPostIt($event)"></ion-icon>
 
   <div class="post-it" *ngFor="let postIt of postIts" [style.left.px]="postIt.x" [style.top.px]="postIt.y" cdkDrag>
-    <!-- Asigna un ID único a cada textarea para el enlace ngModel -->
-    <textarea [(ngModel)]="postIt.content" placeholder="Escribe aquí..." (blur)="onPostItBlur(postIt.id)" [attr.id]="postIt.id"></textarea>
-  </div>   
+    <textarea [(ngModel)]="postIt.content" placeholder="Escribe aquí..." (blur)="onPostItBlur()"></textarea>
+  </div>
 
   <div class="map-upper-lines">
     <div class="row-upper-line"></div>
@@ -30,4 +30,6 @@
       <ion-button (click)="cancelar()">Cancelar</ion-button>
     </div>
   </div>
+
+
 </ion-content>
