@@ -1,69 +1,36 @@
-import { CdkDragDrop, DragDropModule, moveItemInArray } from '@angular/cdk/drag-drop';
-import { CommonModule } from '@angular/common';
+// En clients.page.ts
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { IonicModule } from '@ionic/angular';
-
-//
-import { DataService } from '../../shared/data.service';
-import { DataSharingService } from '../../shared/data.sharing.service';
-//
-
-interface PostIt {
-  x: number;
-  y: number;
-  content: string;
-}
-
+import { SaveService } from 'src/app/services/save.service';
 
 @Component({
   selector: 'app-clients',
   templateUrl: './clients.page.html',
   styleUrls: ['./clients.page.scss'],
-  standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule, DragDropModule]
 })
 export class ClientsPage implements OnInit {
-  postIts: PostIt[] = [];
-  clientes: string[] = []; //
+  clientes: string[] = []; // Almacena la lista de clientes
 
-
-  constructor(private router: Router, private dataService: DataService, private dataSharingService: DataSharingService) { } //private dataSharingService: DataSharingService
+  constructor(private router: Router, private saveService: SaveService) {}
 
   ngOnInit() {
-  //      // Suscríbete a los cambios en la lista de clientes compartidos
-  // this.dataSharingService.getSharedClientes().subscribe((clientes) => {
-  //   this.clientes = clientes;
-  // });
-
-
-      // Suscríbete a los cambios en la lista de post-its compartidos
-      this.dataSharingService.getSharedPostIts().subscribe((postIts) => {
-        this.postIts = postIts;
-      });
-  } 
-
-  move_to_map(){
-    this.router.navigate(['/map'])
-  }
-//Funcion pa mover las cositas
-  onDrop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    // Obtén la lista de clientes al cargar la página
+    this.obtenerClientes();
   }
 
+  async obtenerClientes() {
+    // Utiliza el servicio para obtener la lista de clientes
+    this.clientes = await this.saveService.obtenerClientes();
+  }  
+
+  verCliente(cliente: string) {
+  // Navega a la página 'map.page' y pasa el nombre del cliente como parámetro de ruta
+  this.router.navigate(['/map', cliente]); // Aquí pasas el nombre del cliente
 }
 
+  move_to_map() {
+    this.router.navigate(['/map']);
+  }
 
-
-
-
- 
-
-
-
-
-
-
-
-
+  // Puedes agregar otros métodos según sea necesario
+}
