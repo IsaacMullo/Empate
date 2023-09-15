@@ -25,7 +25,8 @@ export class MapPage implements OnInit {
   clienteSeleccionado: string = '';
 
   showTextBox = false;
-  inputText = '';
+  inputText: string= ''; // nuevoCliente 
+  clientes: string[] = []; //Lista o arrays de clientes.  
 
   constructor(
     private saveService: SaveService,
